@@ -1,0 +1,30 @@
+/* PaymentSuccess.css */
+.payment-success-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0; /* Set your background color */
+}
+
+.payment-success-content {
+  text-align: center;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #ffffff; /* Set your content background color */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle box shadow */
+}
+
+h1 {
+  color: #28a745; /* Set your heading color */
+}
+
+p {
+  color: #333; /* Set your paragraph text color */
+}
+
+/* PaymentSuccess.css */
+.success-gif {
+  max-width: 100%; /* Ensure the GIF doesn't exceed its container's width */
+  margin-bottom: 20px; /* Add some space below the GIF */
+}

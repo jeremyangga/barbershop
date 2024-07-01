@@ -1,0 +1,32 @@
+{
+    "users": [
+        {
+            "name": "Gita",
+            "isArrive": false,
+            "isDone": false
+        },
+        {
+            "name": "Jeane",
+            "isArrive": false,
+            "isDone": false
+        },
+        {
+            "name": "Billie",
+            "isArrive": false,
+            "isDone": false
+        },
+        {
+            "name": "Taylor",
+            "isArrive": false,
+            "isDone": false
+        }
+    ],
+    "orders": [
+        {
+            "idCustomer": 1,
+            "idBarbershop": 1,
+            "status": "Not Arrive",
+            "price": 50000
+        }
+    ]
+}
