@@ -92,7 +92,7 @@ export default function DetailBarber({ route }) {
   const [userRegion, setUserRegion] = useState();
   const [addressBarber, setAddressBarber] = useState("");
   const mapRef = useRef(null);
-  const GOOGLE_MAPS_APIKEY = "AIzaSyAIINesQ9oM96zlEnsW2-Dnv78v5y9a5hU";
+  const GOOGLE_MAPS_APIKEY = "AIzaSyBSF9g5SY921IGFMssJnVjdh-CfSsKvlAw";
   const aspectRatio = windowWidth / windowHeight;
   const getPermission = async () => {
     try {
@@ -114,23 +114,24 @@ export default function DetailBarber({ route }) {
       console.log(error);
     }
   };
-  // console.log(userRegion, "<--userRegion");
+  console.log(userRegion, "<--userRegion");
   const getLocationBarber = async () => {
     try {
       if (!data?.getOne?.alamat) {
         return;
       }
-      // console.log("address =>", data?.getOne?.alamat);
+      console.log("address =>", data?.getOne?.alamat);
       const geocodedLocation = await Location.geocodeAsync(
         data?.getOne?.alamat
       );
-      // console.log("Geocoded Address: ", geocodedLocation);
+      console.log("Geocoded Address: ", geocodedLocation);
       const getGeocoded = geocodedLocation[0];
-      // console.log(getGeocoded, "<--geocoded");
+      console.log(getGeocoded, "<--geocoded barber");
       setAddressBarber({
-        latitude: getGeocoded.latitude,
-        longitude: getGeocoded.longitude,
+        latitude: getGeocoded["latitude"],
+        longitude: getGeocoded["longitude"],
       });
+      console.log(addressBarber.latitude, '<--latitude address barber')
     } catch (error) {
       console.log(error);
     }
@@ -140,20 +141,12 @@ export default function DetailBarber({ route }) {
   }, []);
   useEffect(() => {
     getLocationBarber();
-    // console.log('address barber')
+    console.log('address barber', addressBarber.latitude, '<-latitude', addressBarber.longitude, '<--longitude')
   }, [data]);
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
         <View style={styles.mapContainer}>
-          <Marker
-            pinColor="#fb2e01"
-            coordinate={{
-              latitude: addressBarber.latitude,
-              longitude: addressBarber.longitude,
-            }}
-            description={data?.getOne?.name}
-          ></Marker>
           <MapView
             style={styles.map}
             region={userRegion}
@@ -169,6 +162,20 @@ export default function DetailBarber({ route }) {
               strokeColor="blue"
               strokeWidth={3}
             />
+            {/* <MapView.Marker
+              coordinate={{latitude: 37.78825,
+                longitude: -122.4324}}
+                title="title"
+                description="description"
+              /> */}
+             {/* <Marker
+              pinColor="#fb2e01"
+              coordinate={{
+                latitude: addressBarber["latitude"] ? latitude: -7.2698064,
+                longitude: addressBarber["longitude"] ? longitude: 112.74437499999999,
+              }}
+              description={data?.getOne?.name}
+          ></Marker> */}
           </MapView>
         </View>
         <View style={styles.contentContainer}>

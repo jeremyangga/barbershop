@@ -8,7 +8,7 @@ export default function Midtrans({ route, navigation }) {
   const [url, setUrl] = useState("");
   const checkPayment = async () => {
     try {
-      const { data } = await axios.post("http://13.215.203.92:3000/payment", {
+      const { data } = await axios.post("http://93.127.217.205:3000/payment", {
         invoiceId: invoiceId,
         price: price,
         name: name,
