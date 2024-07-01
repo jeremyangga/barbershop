@@ -26,7 +26,7 @@ const Paid = ({ route }) => {
       <WebView
         source={{
           uri:
-            `https://ee2b-103-165-209-194.ngrok-free.app/?order_id=${invoiceId}&status_code=200&transaction_status=capture` ||
+            `https://cdd9-182-253-116-27.ngrok-free.app/?order_id=${invoiceId}&status_code=200&transaction_status=capture` ||
             "",
         }}
         // onLoad={() => setLoading(false)}

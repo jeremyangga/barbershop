@@ -92,7 +92,7 @@ export default function DetailBarber({ route }) {
   const [userRegion, setUserRegion] = useState();
   const [addressBarber, setAddressBarber] = useState("");
   const mapRef = useRef(null);
-  const GOOGLE_MAPS_APIKEY = "AIzaSyAIINesQ9oM96zlEnsW2-Dnv78v5y9a5hU";
+  const GOOGLE_MAPS_APIKEY = "AIzaSyBSF9g5SY921IGFMssJnVjdh-CfSsKvlAw";
   const aspectRatio = windowWidth / windowHeight;
   const getPermission = async () => {
     try {
@@ -149,8 +149,8 @@ export default function DetailBarber({ route }) {
           <Marker
             pinColor="#fb2e01"
             coordinate={{
-              latitude: addressBarber.latitude,
-              longitude: addressBarber.longitude,
+              latitude: addressBarber.latitude ? latitude: 0,
+              longitude: addressBarber.longitude ? longitude: 0,
             }}
             description={data?.getOne?.name}
           ></Marker>

@@ -65,7 +65,10 @@ export default function Login({ navigation }) {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
-        <View
+        <TouchableOpacity onPress={() => console.log("test")}>
+          <Text>Test</Text>
+        </TouchableOpacity>
+        {/* <View
           style={{ flex: 5, justifyContent: "center", alignItems: "center" }}
         >
           <Image style={styles.logo} source={require("../assets/logo.png")} />
@@ -110,7 +113,7 @@ export default function Login({ navigation }) {
               </View>
             </TouchableOpacity>
           </View>
-        )}
+        )} */}
       </SafeAreaView>
     </SafeAreaProvider>
   );

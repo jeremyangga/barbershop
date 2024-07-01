@@ -11,7 +11,7 @@ import { getValueFor } from "../helpers/secureStore";
 const httpLink = createHttpLink({
 
 
-  uri: "http://13.215.203.92/",
+  uri: "http://93.127.217.205/",
 
 
 });
