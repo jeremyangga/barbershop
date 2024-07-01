@@ -10,6 +10,7 @@ const typeDefs = `#graphql
     username: String
     email: String
     password: String
+    phone_number: String
   }
 
 
@@ -27,6 +28,7 @@ const typeDefs = `#graphql
     username: String!
     email: String!
     password: String!
+    phone_number: String!
   }
   input LoginInput{
     email:String

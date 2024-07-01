@@ -19,6 +19,7 @@ const REGISTER_USER = gql`
       username
       email
       password
+      phone_number
     }
   }
 `;
@@ -30,9 +31,10 @@ export default function Register({ navigation }) {
   const [name, setname] = useState("");
   const [username, setusername] = useState("");
   const [email, setemail] = useState("");
+  const [phone_number, setphone_number] = useState("");
   const [password, setpassword] = useState("");
   const [isTyping, setIsTyping] = useState(false);
-
+  
   const [register, { data, loading, error }] = useMutation(REGISTER_USER);
 
   const handleRegister = async () => {
@@ -76,6 +78,14 @@ export default function Register({ navigation }) {
             onBlur={onBlur}
             value={username}
             placeholder="Username"
+          />
+          <TextInput
+            style={styles.input}
+            onChangeText={setphone_number}
+            onFocus={onFocus}
+            onBlur={onBlur}
+            value={phone_number}
+            placeholder="Phone Number"
           />
           <TextInput
             style={styles.input}

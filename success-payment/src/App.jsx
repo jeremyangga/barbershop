@@ -13,7 +13,7 @@ function App() {
   // console.log(searchParams, '<--'); // 
   const updateStatus = async () =>{
     try {
-      await axios.post('http://localhost:3000/payment-status',{invoiceId: orderId});
+      await axios.post('http://93.127.217.205:3000/payment-status',{invoiceId: orderId});
     } catch (error) {
       console.log(error);
     }
