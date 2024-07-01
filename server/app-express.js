@@ -59,7 +59,7 @@ if (process.env.NODE_ENV !== 'production') {
       let snap = new midtransClient.Snap({
               // Set to true if you want Production Environment (accept real transaction).
               isProduction : false,
-              serverKey : "SB-Mid-server-w-BCDzqekheFZgd7PLO5Kqcp"
+              serverKey : process.env.MIDTRANS_SERVER_KEY
           });
   
       let parameter = {
