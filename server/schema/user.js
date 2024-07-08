@@ -81,22 +81,22 @@ const resolvers = {
     login: async (_, args) => {
       //const { email, password } = args.loginInput;
       const { email, password } = args.loginInput;
-      const {data} = await axios.post('http://localhost:3000/login', {email, password});
-      return data;
+      //const {data} = await axios.post('http://localhost:3000/login', {email, password});
+      //return data;
 
-      // const findUser = await User.findEmail(email);
-      // if (!findUser) {
-      //   throw new Error("user notfound");
-      // }
-      // const compared = compare(password, findUser.password);
-      // if (!compared) {
-      //   throw new Error("not auhtorized");
-      // }
-      // const access_token = createToken({
-      //   userId: findUser._id,
-      // });
+      const findUser = await User.findEmail(email);
+      if (!findUser) {
+        throw new Error("user notfound");
+      }
+      const compared = compare(password, findUser.password);
+      if (!compared) {
+        throw new Error("not auhtorized");
+      }
+      const access_token = createToken({
+        userId: findUser._id,
+      });
 
-      // return { access_token };
+      return { access_token };
     },
   },
 };

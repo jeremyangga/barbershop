@@ -7,13 +7,13 @@ if (process.env.NODE_ENV !== 'production') {
   const User = require("./models/user");
   const { compare } = require("./helper/bcrypt");
   const { createToken } = require("./helper/jwt");
-  const { connect, getDb } = require("./config/mongodb");
-  
+  const { connect, getDb,db } = require("./config/mongodb");
   app.use(cors());
   // body parser
   app.use(express.json());
   app.use(express.urlencoded({extended: true}));
-  
+  const DATABASENAME = "final_project";
+  let database;
   app.post("/login", async (req, res) => {
       console.log('nyampek gan');
       const { email, password } = req.body;
@@ -83,4 +83,25 @@ if (process.env.NODE_ENV !== 'production') {
   });
   connect();
   app.listen(3000, () => console.log("halooo express running"));
+  let dbConnect = getDb();
+  app.get('/api/barbershop', async (req, res)=>{
+    try {
+      // console.log(await dbConnect.collection("barbershop").find({}).toArray);
+        let barbershops = await dbConnect.collection("barbershop").find({}).toArray();
+        res.status(200).json(barbershops);
+    } catch (error) {
+      console.log("An error occurred pulling the records. " + error);
+    }
+  })
+
+  app.post('/api/barbershop', async (req, res)=>{
+    try {
+      // console.log(await dbConnect.collection("barbershop").find({}).toArray);
+      const { name, alamat, image, queue, price } = req.body;
+        let barbershops = await dbConnect.collection("barbershop").insertOne();
+        res.status(200).json(barbershops);
+    } catch (error) {
+      console.log("An error occurred pulling the records. " + error);
+    }
+  })
   
