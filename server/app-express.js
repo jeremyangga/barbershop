@@ -8,6 +8,19 @@ if (process.env.NODE_ENV !== 'production') {
   const { compare } = require("./helper/bcrypt");
   const { createToken } = require("./helper/jwt");
   const { connect, getDb,db } = require("./config/mongodb");
+  const uuid = require('crypto').randomUUID();
+  const cloudinary = require('cloudinary').v2;
+  const multer = require('multer');
+const { ObjectId } = require('mongodb');
+  const storage = multer.memoryStorage();
+  const upload = multer({storage});
+
+  cloudinary.config({ 
+    cloud_name: 'dfz1fzk5q', 
+    api_key: '116195383148784', 
+    api_secret: 'olQsHLIgXIxXWfUndfvej_JDw0c'
+  });
+
   app.use(cors());
   // body parser
   app.use(express.json());
@@ -94,14 +107,61 @@ if (process.env.NODE_ENV !== 'production') {
     }
   })
 
-  app.post('/api/barbershop', async (req, res)=>{
+  app.post('/api/barbershop',upload.single('file'), async (req, res)=>{
     try {
       // console.log(await dbConnect.collection("barbershop").find({}).toArray);
-      const { name, alamat, image, queue, price } = req.body;
-        let barbershops = await dbConnect.collection("barbershop").insertOne();
+      const base64 = Buffer.from(req.file.buffer).toString('base64');
+      const dataURI = `data:${req.file.mimetype};base64,${base64}`;
+
+      const uploadedFile = await cloudinary.uploader.upload(dataURI, {
+        folder: "skripsi/images",
+        public_id: `${req.file.originalname}-${uuid}`
+      });
+      console.log(uploadedFile.secure_url, "<__")
+      const { name, alamat, price } = req.body;
+      let queue = 0;
+      let services = [{
+        service: "Haircut",
+        price: 100_000
+      }];
+      let changeToJSON = {
+        name,
+        alamat,
+        image: uploadedFile.secure_url,
+        price,
+        queue,
+        services
+      }
+      // let bodyJSON = JSON.parse(changeToJSON); 
+      console.log(changeToJSON);
+        let barbershops = await dbConnect.collection("barbershop").insertOne(changeToJSON);
         res.status(200).json(barbershops);
     } catch (error) {
       console.log("An error occurred pulling the records. " + error);
     }
+  })
+
+  app.put('/api/history', async(req, res)=>{
+    const { id, status } = req.body;
+    console.log(id,'<--id', status, )
+    let history = await dbConnect.collection("history").updateOne({_id: new ObjectId(id)}, {$set: {status}});
+    let updated = await dbConnect.collection("history").findOne({_id: new ObjectId(id)});
+    console.log(history);
+    res.status(200).json(updated);
+  })
+
+  app.get('/api/history/:name', async(req, res)=>{
+    const {name} = req.params.name;
+    console.log(name,'antrian')
+    let antrian = await dbConnect.collection("history").find({}, {name:  /.*GoodFellas Barbershop Klampis*/}).toArray();
+    console.log(antrian,"<--antrian");
+    res.status(200).json(antrian);
+  })
+  app.get('/api/allhistory', async(req, res)=>{
+    // const {name} = req.body;
+    // console.log(name,'antrian')
+    let antrian = await dbConnect.collection("history").find({}).toArray();
+    console.log(antrian,"<--antrian");
+    res.status(200).json(antrian);
   })
   

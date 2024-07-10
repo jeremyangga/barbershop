@@ -1,46 +1,37 @@
-import Navbar from "../components/Navbar";
 import TableBarbershop from "../components/TableBarbershop";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchBarbershop } from "../features/barbershopSlice";
 
 function Home(){
-    const barbershop = useSelector(state =>{
-        return state.barbershop.list
-    })
-    const loading = useSelector(state =>{
-        return state.barbershop.loading
-    })
-    const dispatch = useDispatch();
+   const barbershops = useSelector(state => state.barbershops.list);
+   const loading = useSelector(state => state.barbershops.loading);
 
-    useEffect(()=>{ 
-        dispatch(fetchBarbershop());
-    }, []);
+   const dispatch = useDispatch();
 
-    if(loading){
-        return( 
-        <>
-            <iframe src={loadingGif} width="480" height="480" allowFullScreen></iframe>
-            <h1>Loading...</h1>
-        </>
-        )
-    }
+   useEffect(()=>{
+    dispatch(fetchBarbershop());
+   }, [])
     return(
         <>
-        <Navbar/>
+        {/* <Navbar/> */}
         <div className="container" style={{marginTop: '100px'}}>
             <h1>List Barbershop</h1>
             <div className="container">
              <table className="table table-bordered">
                 <thead>
                     <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Thumbnail</th>
-                        <th scope="col">Action</th>
+                        {/* <th scope="col">ID</th> */}
+                        <th scope="col">Nama</th>
+                        <th scope="col">Alamat</th>
+                        <th scope="col">Gambar</th>
+                        <th scope="col">Antrian</th>
                     </tr>
                 </thead>  
                 <tbody>
                     {
-                         barbershop.map(barbershop =>{
-                            return <TableBarbershop barbershop={barbershop}/>
+                        barbershops.map(barbershop =>{
+                            return <TableBarbershop key={barbershop._id} barbershop={barbershop}/>
                         })
                     }
                 </tbody> 

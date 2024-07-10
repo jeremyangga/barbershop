@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import Navbar from "../components/Navbar";
+// import Navbar from "../components/Navbar";
 import Swal from 'sweetalert2';
 import {Scanner} from '@yudiel/react-qr-scanner';
 import axios from '../config/instance';
+// import Navbar from "../components/navbar";
 function QRScanning() {
     const [scannedResult, setScannedResult] = useState("");
     const [dataFromDB, setDataFromDB] = useState([]);
@@ -15,25 +16,45 @@ function QRScanning() {
     //     await axios.post()
     // }
     // console.log(data, '<--data');
-    useEffect(() => {
-        fetchData();
-    }, []);
-    useEffect(() =>{
-        console.log("-->", dataFromDB);
-        let result = dataFromDB.map((el) => {
-           if(el?.name === scannedResult){
-                return{...el, isArrive: true};
-           }
-           return el;
-        });
-        console.log(result, '<--result');
+    // useEffect(() => {
+    //     fetchData();
+    // }, []);
+    // useEffect(() =>{
+    //     console.log("-->", dataFromDB);
+    //     let result = dataFromDB.map((el) => {
+    //        if(el?.name === scannedResult){
+    //             return{...el, isArrive: true};
+    //        }
+    //        return el;
+    //     });
+    //     console.log(result, '<--result');
         
-    }, [scannedResult])
+    // }, [scannedResult]);
+
+    async function handleScan(result){
+      setScannedResult(result[0].rawValue);
+      let id = result[0].rawValue.toString();
+      console.log(id,">id")
+      let {data} = await axios.put('/api/history',{
+        id: id,
+        status: 'cutting hair'
+      });
+      console.log(data, '<-- data');
+      Swal.fire({
+        title: "Success Scan",
+        html: `<p>Customer: ${data.orderBy}</p> <p>Barbershop: ${data.name} </p> <p>Di tanggal: ${data.date} </p> `,
+        icon: "success"
+      }).then(function(result){
+        if(result.value){
+            window.location = '/';
+        }
+      });
+    }
     return(
         <>
-            <Navbar/>
+            {/* <Navbar/> */}
             <div style={{marginTop: '50px', marginBottom: '50px'}}>
-                <Scanner onScan={(result) => setScannedResult(result[0].rawValue)}></Scanner>
+                <Scanner onScan={handleScan}></Scanner>
             </div>
             {scannedResult && (
         <p

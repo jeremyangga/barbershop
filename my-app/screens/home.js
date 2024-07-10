@@ -44,7 +44,7 @@ const Home = () => {
                 </Text>
               </View>
             </View>
-            <Text style={styles.sectionTitle}>Transaksi terakhir</Text>
+            {/* <Text style={styles.sectionTitle}>Transaksi terakhir</Text>
             <View
               style={{
                 borderWidth: 1,
@@ -66,7 +66,7 @@ const Home = () => {
                   }}
                 />
               </View>
-            </View>
+            </View> */}
             <Text style={styles.sectionTitle}>Hanya untuk Anda</Text>
             <ScrollView
               horizontal
