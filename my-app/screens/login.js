@@ -13,6 +13,7 @@ import { AuthContext } from "../context/AuthContext";
 import { gql, useMutation } from "@apollo/client";
 import { useEffect } from "react";
 import { getValueFor, save } from "../helpers/secureStore";
+import AwesomeAlert from 'react-native-awesome-alerts';
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -29,6 +30,9 @@ export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertTitle, setAlertTitle] = useState('');
+  const [alertMessage, setAlertMessage] = useState('');
 
   const authContext = useContext(AuthContext);
   const [mutateFunction, { data, loading, error }] = useMutation(LOGIN_USER, {
@@ -37,12 +41,24 @@ export default function Login({ navigation }) {
     },
   });
 
+  const showAlertDialog = (title, message) => {
+    setAlertTitle(title);
+    setAlertMessage(message);
+    setShowAlert(true);
+  };
+
+  const hideAlert = () => {
+    setShowAlert(false);
+  };
+
   const handleLogin = async () => {
     try {
       const loginInput = { email, password };
       const result = await mutateFunction({ variables: { loginInput } });
+      console.log(result, '<--result')
     } catch (error) {
-      console.error(error);
+      showAlertDialog("Perhatian!", "Email atau password salah");
+      console.error(error, '<<---error');
     }
   };
 
@@ -111,6 +127,18 @@ export default function Login({ navigation }) {
             </TouchableOpacity>
           </View>
         )}
+         <AwesomeAlert
+          show={showAlert}
+          showProgress={false}
+          title={alertTitle}
+          message={alertMessage}
+          closeOnTouchOutside={false}
+          closeOnHardwareBackPress={false}
+          showConfirmButton={true}
+          confirmText="Oke"
+          confirmButtonColor="#DD6B55"
+          onConfirmPressed={hideAlert}
+        />
       </SafeAreaView>
     </SafeAreaProvider>
   );

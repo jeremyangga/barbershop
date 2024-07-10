@@ -10,9 +10,10 @@ export default function Navbar(){
             <Link className="navbar-brand" to="/" style={{paddingLeft: '10px'}}>Admin Control</Link>
             <div className='collapse navbar-collapse' id='navbarSupportedContent'>
                 <div className="navbar-nav me-auto mb-2 mb-lg-0">
-                        <Link to='/add-barbershop'  className='btn btn-outline-primary' type='button' style={{marginRight:'10px', color:"white"}}>Tambah Barbershop</Link> 
-                        <Link to='/add-admin' className='btn btn-outline-info' type='button' style={{marginRight:'10px'}}>Tambah Admin Barbershop</Link>
-                        <Link to='/histories' className='btn btn-outline-warning' type='button' style={{marginRight:'10px'}}>Riwayat</Link>
+                        <Link to='/'  className='btn btn-outline-primary' type='button' style={{marginRight:'10px', color:"white"}}>Lihat Barbershop</Link> 
+                        <Link to='/add-barbershop' className='btn btn-outline-info' type='button' style={{marginRight:'10px'}}>Tambah Barbershop</Link>
+                        <Link to='/scan' className='btn btn-outline-danger' type='button' style={{marginRight:'10px'}}>Scan</Link>
+                        <Link to='/list-antrian' className='btn btn-outline-warning' type='button' style={{marginRight:'10px'}}>List Antrian</Link>
                 </div> 
             </div>
           
