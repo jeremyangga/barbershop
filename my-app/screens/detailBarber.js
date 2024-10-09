@@ -92,7 +92,7 @@ export default function DetailBarber({ route }) {
   const [userRegion, setUserRegion] = useState();
   const [addressBarber, setAddressBarber] = useState("");
   const mapRef = useRef(null);
-  const GOOGLE_MAPS_APIKEY = "AIzaSyBSF9g5SY921IGFMssJnVjdh-CfSsKvlAw";
+  const GOOGLE_MAPS_APIKEY = "";
   const aspectRatio = windowWidth / windowHeight;
   const getPermission = async () => {
     try {
