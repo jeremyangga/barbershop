@@ -16,9 +16,9 @@ const { ObjectId } = require('mongodb');
   const upload = multer({storage});
 
   cloudinary.config({ 
-    cloud_name: 'dfz1fzk5q', 
-    api_key: '116195383148784', 
-    api_secret: 'olQsHLIgXIxXWfUndfvej_JDw0c'
+    cloud_name: '', 
+    api_key: '', 
+    api_secret: ''
   });
 
   app.use(cors());
